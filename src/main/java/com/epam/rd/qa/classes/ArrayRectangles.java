@@ -2,38 +2,83 @@ package com.epam.rd.qa.classes;
 
 public class ArrayRectangles {
 
+    private final Rectangle[] rectangleArray;
+
     public ArrayRectangles(int size) {
-        // TODO place your code here
-        throw new UnsupportedOperationException();
+        check(size);
+        rectangleArray = new Rectangle[size];
     }
 
     public ArrayRectangles(Rectangle... rectangles) {
-        // TODO place your code here
-        throw new UnsupportedOperationException();
+        if (rectangles == null) {
+            throw new IllegalArgumentException();
+        }
+        check(rectangles.length);
+        rectangleArray = rectangles;
     }
 
     public boolean addRectangle(Rectangle rectangle) {
-        // TODO place your code here
-        throw new UnsupportedOperationException();
+        if (rectangleArray.length == size()) {
+            return false;
+        }
+        for (int i = 0; i < rectangleArray.length; i++) {
+            if (rectangleArray[i] == null) {
+                rectangleArray[i] = rectangle;
+                break;
+            }
+        }
+        return true;
     }
 
     public int size() {
-        // TODO place your code here
-        throw new UnsupportedOperationException();
+        int size = rectangleArray.length;
+        for (Rectangle rectangle : rectangleArray) {
+            if (rectangle == null) {
+                size--;
+            }
+        }
+        return size;
     }
 
     public int indexMaxArea() {
-        // TODO place your code here
-        throw new UnsupportedOperationException();
+        int max = 0;
+        for (int i = 0; i < rectangleArray.length; i++) {
+            if (rectangleArray[i] != null) {
+                if (rectangleArray[i].area() > rectangleArray[max].area()) {
+                    max = i;
+                }
+            }
+        }
+        return max;
     }
 
     public int indexMinPerimeter() {
-        // TODO place your code here
-        throw new UnsupportedOperationException();
+        int min = 0;
+        for (int i = 0; i < rectangleArray.length; i++) {
+            if (rectangleArray[i] != null) {
+                if (rectangleArray[i].perimeter() < rectangleArray[min].perimeter()) {
+                    min = i;
+                }
+            }
+        }
+        return min;
     }
 
     public int numberSquares() {
-        // TODO place your code here
-        throw new UnsupportedOperationException();
+        int count = 0;
+        for (Rectangle rectangle : rectangleArray) {
+            if (rectangle != null) {
+                if (rectangle.isSquare()) {
+                    count++;
+                }
+            }
+        }
+        return count;
+    }
+
+    private void check(int size) {
+        if (size <= 0) {
+            throw new IllegalArgumentException();
+        }
     }
 }
